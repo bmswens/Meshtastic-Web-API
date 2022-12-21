@@ -1,7 +1,7 @@
 # Meshtastic Web API
 
 [![Test](https://github.com/bmswens/Meshtastic-REST-API/actions/workflows/Test.yml/badge.svg)](https://github.com/bmswens/Meshtastic-REST-API/actions/workflows/Test.yml)
-[![Coverage Status](https://coveralls.io/repos/github/bmswens/Meshtastic-Web-API/badge.svg?branch=main)](https://coveralls.io/github/bmswens/Meshtastic-REST-API?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/bmswens/Meshtastic-Web-API/badge.svg?branch=main)](https://coveralls.io/github/bmswens/Meshtastic-Web-API?branch=main)
 [![License](https://img.shields.io/github/license/bmswens/Meshtastic-REST-API)](https://github.com/bmswens/Meshtastic-REST-API/blob/master/LICENSE.txt)
 
 
