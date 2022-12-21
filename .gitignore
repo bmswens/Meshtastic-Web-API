@@ -1,0 +1,11 @@
+# venv
+venv
+
+# python
+__pycache__
+*\__pycache__
+*.egg-info
+.pytest_cache
+
+# testing
+.coverage
