@@ -3,6 +3,7 @@ from flask_restx import Api
 
 # custom
 from .nodes import api as nodes
+from .config import api as config
 
 api = Api(
     title="Meshtastic REST API",
@@ -10,7 +11,8 @@ api = Api(
     description="A RESTful interface for interacting with a Meshtastic node over serial connection.",
     contact="bmswens@gmail.com",
     license="GNU GENERAL PUBLIC LICENSE",
-
+    license_url="https://github.com/bmswens/Meshtastic-REST-API/blob/main/LICENSE"
 )
 
 api.add_namespace(nodes, path="/nodes")
+api.add_namespace(config, path="/config")

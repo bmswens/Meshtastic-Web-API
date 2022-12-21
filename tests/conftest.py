@@ -1,10 +1,10 @@
 # built in
 import os
-from unittest.mock import MagicMock
 
 # 3rd party
 from meshtastic.serial_interface import SerialInterface
 from meshtastic.mesh_interface import MeshInterface
+from meshtastic.node import Node
 import pytest
 
 # custom
@@ -43,6 +43,7 @@ def app():
         }
     }
     app.interface.nodes = mockNodes
+    
 
     # other setup can go here
 
