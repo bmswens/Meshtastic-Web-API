@@ -1,5 +1,5 @@
 # 3rd party
-from flask import current_app
+from flask import current_app, request
 from flask_restx import Namespace, Resource
 
 # custom
@@ -9,10 +9,25 @@ api = Namespace("nodes", description="Node-centric operations")
 
 @api.route("/all")
 @api.doc(
-    description="Returns the IDs of all known node as a list."
+    description="Returns all the known nodes in either list or JSON format.",
+    params={
+        "detailed": {
+            "description": 'A boolean to send a detailed response or not ("true" or "false").',
+            "in": "query",
+            "type": "string",
+            "default": "false"
+        }
+    }
+
 )
 class AllNodes(Resource):
     def get(self):
+        if request.args.get('detailed') == "true":
+            output = {}
+            for nodeSerial in current_app.interface.nodes:
+                output[nodeSerial] = current_app.interface.nodes[nodeSerial]
+                output[nodeSerial]["position"] = clean_position(output[nodeSerial]["position"])
+            return output
         return [nodeID for nodeID in current_app.interface.nodes]
 
 
