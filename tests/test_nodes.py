@@ -12,3 +12,11 @@ class TestGetNode:
     def test_non_existant_node(self, client):
         resp = client.get("/nodes/info/fakeSerial")
         assert resp.status_code == 404
+
+class TestGetAllNodes:
+    def test_all_nodes(self, client):
+        resp = client.get("/nodes/all")
+        assert resp.status_code == 200
+        assert "serialNumber" in resp.json
+        assert "otherSerial" in resp.json
+        assert len(resp.json) == 2

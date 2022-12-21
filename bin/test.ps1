@@ -1,0 +1,1 @@
+.\venv\Scripts\pytest.exe --cov=src --cov-report term-missing

@@ -7,6 +7,15 @@ from .utils import clean_position
 
 api = Namespace("nodes", description="Node-centric operations")
 
+@api.route("/all")
+@api.doc(
+    description="Returns the IDs of all known node as a list."
+)
+class AllNodes(Resource):
+    def get(self):
+        return [nodeID for nodeID in current_app.interface.nodes]
+
+
 @api.route("/info/<node>")
 @api.doc(
     description="Returns info of a node in JSON format.",
