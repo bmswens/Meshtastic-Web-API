@@ -6,9 +6,9 @@ from .nodes import api as nodes
 from .config import api as config
 
 api = Api(
-    title="Meshtastic REST API",
+    title="Meshtastic Web API",
     version="0.1",
-    description="A RESTful interface for interacting with a Meshtastic node over serial connection.",
+    description="A web interface for interacting with a Meshtastic node over serial connection.",
     contact="bmswens@gmail.com",
     license="GNU GENERAL PUBLIC LICENSE",
     license_url="https://github.com/bmswens/Meshtastic-REST-API/blob/main/LICENSE"
