@@ -66,6 +66,7 @@ def app():
 
     iface.nodesByNum = {1: anode }
     iface.nodes = nodes
+    iface.devPath = "COM4"
 
     myInfo = MagicMock(return_value=nodes["!9388f81c"])
     iface.myInfo = myInfo
