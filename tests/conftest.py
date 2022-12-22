@@ -74,6 +74,11 @@ def app():
     getMyUser = MagicMock(return_value=nodes['!9388f81c']['user'])
     iface.getMyUser = getMyUser
 
+    # local node
+    iface.localNode = MagicMock(autospec=Node)
+    mock_canned_message = "canned_plugin_message:test\n'test'"
+    iface.localNode.get_canned_message = MagicMock(return_value=mock_canned_message)
+
     app.interface = iface
     # other setup can go here
 

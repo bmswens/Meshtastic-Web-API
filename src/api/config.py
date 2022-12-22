@@ -94,3 +94,10 @@ class GetConfig(Resource):
 
         interface.getNode(node_id, False).commitSettingsTransaction()
         return "success"
+
+@api.route("/canned-message")
+class CannedMessage(Resource):
+    def get(self):
+        message = current_app.interface.localNode.get_canned_message()
+        message = message[message.find("'") + 1:message.rfind("'")]
+        return { "canned_message": message }

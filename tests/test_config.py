@@ -95,3 +95,9 @@ owner_short: SN0
       }
       resp = client.post("/config", json=body)
       assert resp.status_code == 200
+
+class TestCannedMessage:
+    def test_get_message(self, client):
+        resp = client.get("/config/canned-message")
+        assert resp.status_code == 200
+        assert resp.json == { "canned_message": "test" }
