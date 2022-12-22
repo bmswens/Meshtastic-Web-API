@@ -6,6 +6,7 @@ from unittest.mock import MagicMock
 from meshtastic.serial_interface import SerialInterface
 from meshtastic.mesh_interface import MeshInterface
 from meshtastic.node import Node
+from meshtastic.channel_pb2 import Channel
 import pytest
 
 # custom
@@ -78,6 +79,11 @@ def app():
     iface.localNode = MagicMock(autospec=Node)
     mock_canned_message = "canned_plugin_message:test\n'test'"
     iface.localNode.get_canned_message = MagicMock(return_value=mock_canned_message)
+    iface.localNode.channels = [
+        MagicMock(autospec=Channel),
+        MagicMock(autospec=Channel),
+        Channel()
+    ]
 
     app.interface = iface
     # other setup can go here

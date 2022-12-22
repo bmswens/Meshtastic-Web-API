@@ -5,6 +5,7 @@ from flask_restx import Api
 from .nodes import api as nodes
 from .config import api as config
 from .serial import api as serial
+from .channels import api as channels
 
 api = Api(
     title="Meshtastic Web API",
@@ -18,3 +19,4 @@ api = Api(
 api.add_namespace(nodes, path="/nodes")
 api.add_namespace(config, path="/config")
 api.add_namespace(serial, path="/serial")
+api.add_namespace(channels, path="/channel")
