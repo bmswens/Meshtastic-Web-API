@@ -95,9 +95,24 @@ class GetConfig(Resource):
         interface.getNode(node_id, False).commitSettingsTransaction()
         return "success"
 
+canned_message_model = api.model("canned message", {
+    "canned_message": fields.String(required=True, example="My new message")
+})
+
 @api.route("/canned-message")
 class CannedMessage(Resource):
+    @api.doc(description="Get the current canned message")
     def get(self):
         message = current_app.interface.localNode.get_canned_message()
         message = message[message.find("'") + 1:message.rfind("'")]
         return { "canned_message": message }
+    
+    @api.doc(description="Update the current canned message")
+    @api.expect(canned_message_model)
+    def post(self):
+        body = request.json
+        if "canned_message" not in body:
+            return {"message": "Missing 'canned_message' in body"}, 400
+        localNode = current_app.interface.localNode
+        localNode.set_canned_message(body["canned_message"])
+        return {"canned_message": body["canned_message"]}

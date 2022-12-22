@@ -101,3 +101,14 @@ class TestCannedMessage:
         resp = client.get("/config/canned-message")
         assert resp.status_code == 200
         assert resp.json == { "canned_message": "test" }
+
+    def test_post_message(self, client):
+        body = { "canned_message": "New Test" }
+        resp = client.post("/config/canned-message", json=body)
+        assert resp.status_code == 200
+        assert resp.json == body
+
+    def test_bad_post_message(self, client):
+        body = { "fake": "data" }
+        resp = client.post("/config/canned-message", json=body)
+        assert resp.status_code == 400
