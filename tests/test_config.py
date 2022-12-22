@@ -57,8 +57,7 @@ module_config:
     environmentUpdateInterval: 900
 owner: Swenson Node 0
 owner_short: SN0
-            """
-            
+            """ 
         )
         resp = client.get("/config")
         assert resp.status_code == 200
@@ -72,3 +71,27 @@ owner_short: SN0
         ]
         for key in required_keys:
             assert key in resp.json.keys()
+
+    def test_post_full_config(self, client):
+      body = {
+        "owner": "Swenson Node 0",
+        "owner_short": "SN0",
+        "channel_url": "http://meshtastic.org/asdfadsf",
+        "location": {
+          "alt": 0,
+          "lat": 0,
+          "lon": 0
+        },
+        "config": {
+          "section": {
+            "ignore_incoming": "string",
+          }
+        },
+        "module_config": {
+          "section": {
+            "ignore_incoming": "string",
+          }
+        }
+      }
+      resp = client.post("/config", json=body)
+      assert resp.status_code == 200

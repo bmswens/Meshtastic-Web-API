@@ -1,5 +1,6 @@
 # built in
 import os
+from unittest.mock import MagicMock
 
 # 3rd party
 from meshtastic.serial_interface import SerialInterface
@@ -32,19 +33,47 @@ def app():
     })
 
     # mock out the meshtastic interface
-    mockNodes = {
-        "serialNumber": {
-            "user": {"id": "001", "shortName": "SN0"},
-            "position": {}
+    # code yoinked from meshtastic tests
+    iface = MagicMock(autospec=MeshInterface)
+    anode = Node('foo', 'bar')
+
+    nodes = {
+        '!9388f81c': {
+            'num': 2475227164,
+            'user': {
+                'id': '!9388f81c',
+                'longName': 'Unknown f81c',
+                'shortName': '?1C',
+                'macaddr': 'RBeTiPgc',
+                'hwModel': 'TBEAM'
+            },
+            'position': {},
+            'lastHeard': 1640204888
         },
-        "otherSerial": {
-            "user": {"id": "002", "shortName": "SN1"},
-            "position": {"raw": "testing value"}
+        "SN1": {
+            'num': 2475227164,
+            'user': {
+                'id': 'SN1',
+                'longName': 'Unknown f81c',
+                'shortName': '?1C',
+                'macaddr': 'RBeTiPgc',
+                'hwModel': 'TBEAM'
+            },
+            'position': {"raw": "bad data"},
+            'lastHeard': 1640204888
         }
     }
-    app.interface.nodes = mockNodes
-    
 
+    iface.nodesByNum = {1: anode }
+    iface.nodes = nodes
+
+    myInfo = MagicMock(return_value=nodes["!9388f81c"])
+    iface.myInfo = myInfo
+
+    getMyUser = MagicMock(return_value=nodes['!9388f81c']['user'])
+    iface.getMyUser = getMyUser
+
+    app.interface = iface
     # other setup can go here
 
     yield app
