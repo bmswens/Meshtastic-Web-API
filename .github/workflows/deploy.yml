@@ -33,14 +33,13 @@ jobs:
         # Default: depends on the default_author input
         author_email: bmswens@gmail.com
 
-
         # The message for the commit.
         # Default: 'Commit from GitHub Actions (name of the workflow)'
         message: 'Update documentation pages'
 
-        commit: --force
-
         # If this input is set, the action will push the commit to a new branch with this name.
         # Default: ''
         new_branch: pages
+
+        push: --force
         
