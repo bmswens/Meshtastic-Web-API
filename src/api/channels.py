@@ -28,7 +28,7 @@ messageModel = api.model("Message", {
     )
 })
 
-@api.route("/message")
+@api.route("/messages")
 class TextMessage(Resource):
     @api.doc(
         description="Send a message on a channel, defaults to primary channel"
