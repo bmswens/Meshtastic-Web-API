@@ -1,0 +1,44 @@
+name: Deploy Github Pages
+
+on:
+  workflow_run:
+    workflows: ["Test"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10' 
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - run: pip install -r requirements.txt
+    - run: python ./src/app.py --export
+    - run: npm install -g redoc-cli
+    - run: redoc-cli bundle -o index.html swagger.json
+    - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
+  with:
+    add: 'index.html'
+
+    # The name of the user that will be displayed as the author of the commit.
+    # Default: depends on the default_author input
+    author_name: Brandon Swenson
+
+    # The email of the user that will be displayed as the author of the commit.
+    # Default: depends on the default_author input
+    author_email: bmswens@gmail.com
+
+
+    # The message for the commit.
+    # Default: 'Commit from GitHub Actions (name of the workflow)'
+    message: 'Update documentation pages'
+
+    # If this input is set, the action will push the commit to a new branch with this name.
+    # Default: ''
+    new_branch: pages
+    

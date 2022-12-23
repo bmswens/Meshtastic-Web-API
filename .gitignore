@@ -13,3 +13,4 @@ coverage
 
 # database
 *.sqlite
+swagger.json
