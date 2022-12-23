@@ -29,7 +29,7 @@ configModel = api.model("Config", {
 })
 
 @api.route("")
-class GetConfig(Resource):
+class LocalConfig(Resource):
 
     @api.doc(
         description="Returns the configuration of the node connected via serial."
