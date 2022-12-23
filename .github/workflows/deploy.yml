@@ -22,23 +22,23 @@ jobs:
     - run: npm install -g redoc-cli
     - run: redoc-cli bundle -o index.html swagger.json
     - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
-  with:
-    add: 'index.html'
+      with:
+        add: 'index.html'
 
-    # The name of the user that will be displayed as the author of the commit.
-    # Default: depends on the default_author input
-    author_name: Brandon Swenson
+        # The name of the user that will be displayed as the author of the commit.
+        # Default: depends on the default_author input
+        author_name: Brandon Swenson
 
-    # The email of the user that will be displayed as the author of the commit.
-    # Default: depends on the default_author input
-    author_email: bmswens@gmail.com
+        # The email of the user that will be displayed as the author of the commit.
+        # Default: depends on the default_author input
+        author_email: bmswens@gmail.com
 
 
-    # The message for the commit.
-    # Default: 'Commit from GitHub Actions (name of the workflow)'
-    message: 'Update documentation pages'
+        # The message for the commit.
+        # Default: 'Commit from GitHub Actions (name of the workflow)'
+        message: 'Update documentation pages'
 
-    # If this input is set, the action will push the commit to a new branch with this name.
-    # Default: ''
-    new_branch: pages
-    
+        # If this input is set, the action will push the commit to a new branch with this name.
+        # Default: ''
+        new_branch: pages
+        
