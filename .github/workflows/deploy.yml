@@ -41,5 +41,5 @@ jobs:
         # Default: ''
         new_branch: pages
 
-        push: --force
+        push: --force --set-upstream origin pages
         
