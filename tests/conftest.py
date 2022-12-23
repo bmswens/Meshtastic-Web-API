@@ -28,7 +28,7 @@ def app():
     # trying to connect over serial
     SerialInterface.__init__ = lambda x: None
 
-    app = create_app()
+    app, api = create_app()
     app.config.update({
         "TESTING": True,
     })

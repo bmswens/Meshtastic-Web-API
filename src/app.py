@@ -7,7 +7,7 @@ from flask import Flask
 import meshtastic.serial_interface
 
 # custom
-from api import api, export
+from api import api
 import db
 
 
