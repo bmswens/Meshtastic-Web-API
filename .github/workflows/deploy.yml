@@ -38,6 +38,8 @@ jobs:
         # Default: 'Commit from GitHub Actions (name of the workflow)'
         message: 'Update documentation pages'
 
+        commit: --force
+
         # If this input is set, the action will push the commit to a new branch with this name.
         # Default: ''
         new_branch: pages
