@@ -4,6 +4,7 @@ import meshtastic.serial_interface
 
 # custom
 from api import api
+import db
 
 
 def create_app():
@@ -11,7 +12,9 @@ def create_app():
     app = Flask(__name__)
     # meshtastic interface that all sub modules will use
     interface = meshtastic.serial_interface.SerialInterface()
+    db.start()
     app.interface = interface
+    app.db = db.Database("db.sqlite")
     api.init_app(app)
     return app
 
