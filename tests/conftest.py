@@ -1,6 +1,7 @@
 # built in
 import os
 from unittest.mock import MagicMock
+import datetime
 
 # 3rd party
 from meshtastic.serial_interface import SerialInterface
@@ -15,11 +16,7 @@ this_dir = os.path.dirname(os.path.abspath(__file__))
 src_dir = os.path.join(os.path.dirname(this_dir), 'src')
 os.sys.path.append(src_dir)
 from app import create_app
-
-class MockInterface(MeshInterface):
-    def __init__(self, super):
-        print('am fake')
-        super.__init__()
+import db
 
 
 @pytest.fixture()
@@ -86,12 +83,18 @@ def app():
     ]
 
     app.interface = iface
+
+    # db setup
+    app.db = db.Database("test.sqlite")
+    with app.db as database:
+        database.insert(1, "sender2", "!9388f81c", "first message", 1, datetime.datetime(year=2022, month=12, day=18).isoformat())
+        database.insert(1, "sender1", "^all", "testing", 0, datetime.datetime.now().isoformat())
     # other setup can go here
 
     yield app
 
     # clean up / reset resources here
-
+    os.remove("test.sqlite")
 
 @pytest.fixture()
 def client(app):

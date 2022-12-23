@@ -40,3 +40,18 @@ class TestSendText:
         assert resp.status_code == 200
 
 
+class TestGetText:
+    def test_get_all(self, client):
+        resp = client.get("/channel/messages")
+        assert resp.status_code == 200
+        assert len(resp.json) == 2
+    def test_get_by_dm(self, client):
+        resp = client.get("/channel/messages?dm=true")
+        assert resp.status_code == 200
+        assert len(resp.json) == 1
+        assert resp.json[0]["text"] == "first message"
+    def test_get_messages_limit(self, client):
+        resp = client.get("/channel/messages?limit=1")
+        assert resp.status_code == 200
+        assert len(resp.json) == 1
+        assert resp.json[0]["text"] == "testing"

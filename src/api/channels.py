@@ -28,6 +28,32 @@ messageModel = api.model("Message", {
     )
 })
 
+recMessageModel = api.model("Recieved Message", {
+    "uuid": fields.Integer(
+        description="Interal database UUID"
+    ),
+    "sender": fields.String(
+        description="The ID of the sender",
+        example="!9388f81c"
+    ),
+    "target": fields.String(
+        description="Intended target of the message",
+        example="^all"
+    ),
+    "text": fields.String(
+        description="The content of the message",
+        example="Hello world!"
+    ),
+    "channel": fields.Integer(
+        description="The channel index",
+        example="0"
+    ),
+    "timestamp": fields.DateTime(
+        description="ISO8601 formatted datetime",
+        example="2022-12-23T14:51:15.784133"
+    )
+})
+
 @api.route("/messages")
 class TextMessage(Resource):
     @api.doc(
@@ -49,3 +75,20 @@ class TextMessage(Resource):
         interface.sendText(**message)
         return { "message": "success" }, 200
         
+    @api.doc(
+        description="Get messages stored in the database"
+    )
+    @api.marshal_with(recMessageModel)
+    @api.param("dm", description="Shows only direct messages")
+    @api.param("limit", description="Limit how many messages to output")
+    def get(self):
+        interface = current_app.interface
+        params = request.args.to_dict()
+        dm = None
+        if "dm" in params:
+            user = interface.getMyUser()
+            dm = user['id']
+        limit = params.get("limit")
+        with current_app.db as db:
+            messages = db.get(limit, dm)
+        return messages

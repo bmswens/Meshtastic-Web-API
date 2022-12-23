@@ -6,6 +6,12 @@ import datetime
 import meshtastic.serial_interface
 from pubsub import pub
 
+
+def dict_factory(cursor, row):
+    fields = [column[0] for column in cursor.description]
+    return {key: value for key, value in zip(fields, row)}
+
+
 class Database:
     def __init__(self, path):
         self.path = path
@@ -13,13 +19,14 @@ class Database:
         self.cursor = None
     def __enter__(self):
         self.connection = sqlite3.connect(self.path)
+        self.connection.row_factory = dict_factory
         self.cursor = self.connection.cursor()
         self.cursor.execute(
             """
             CREATE TABLE IF NOT EXISTS messages (
                 uuid INTEGER,
-                sender INTEGER,
-                target INTEGER,
+                sender TEXT,
+                target TEXT,
                 text TEXT,
                 channel INTEGER,
                 timestamp TEXT
@@ -39,6 +46,21 @@ class Database:
             "INSERT INTO messages VALUES (?, ?, ?, ?, ?, ?);",
             [uuid, sender, target, text, channel, timestamp]
         )
+    def get(
+        self,
+        limit=None,
+        dm=None
+    ):
+        if not self.connection:
+            raise RuntimeError('No connection found, please use `with Database("/path") as db:` syntax')
+        results = None
+        if not limit and not dm:
+            results = self.cursor.execute("SELECT * FROM messages ORDER BY timestamp DESC;")
+        elif limit:
+            results = self.cursor.execute("SELECT * FROM messages ORDER BY timestamp DESC LIMIT ?;", [limit])
+        elif dm:
+            results = self.cursor.execute("SELECT * FROM messages WHERE target=? ORDER BY timestamp DESC;", [dm])
+        return [row for row in results]
 
 
 def onMessage(packet, interface, db_path="db.sqlite"):

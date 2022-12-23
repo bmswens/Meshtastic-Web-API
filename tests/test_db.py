@@ -18,6 +18,8 @@ class TestDB:
         d = db.Database(":memory:")
         with pytest.raises(RuntimeError):
             d.insert(1, 1, 2, "test", 0, datetime.datetime.now().isoformat())
+        with pytest.raises(RuntimeError):
+            d.get()
 
     def test_insert(self):
         with db.Database(":memory:") as d:
