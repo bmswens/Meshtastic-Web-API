@@ -1,4 +1,4 @@
-name: Deploy Github Pages
+name: Build Github Pages
 
 on:
   workflow_run:

@@ -1,6 +1,7 @@
 # built in
 import argparse
 import json
+import os
 
 # 3rd party
 from flask import Flask
@@ -11,6 +12,7 @@ from api import api
 import db
 
 
+
 def create_app(connect=True):
     # flask init
     app = Flask(__name__)
@@ -18,9 +20,9 @@ def create_app(connect=True):
     interface = None
     if connect:
         interface = meshtastic.serial_interface.SerialInterface()
-    db.start()
+    db_path = db.start()
     app.interface = interface
-    app.db = db.Database("db.sqlite")
+    app.db = db.Database(db_path)
     api.init_app(app)
     return app, api
 

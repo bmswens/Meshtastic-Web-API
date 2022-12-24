@@ -1,4 +1,5 @@
 # built in
+import os
 import sqlite3
 import datetime
 
@@ -63,7 +64,9 @@ class Database:
         return [row for row in results]
 
 
-def onMessage(packet, interface, db_path="db.sqlite"):
+def onMessage(packet, interface, db_path=None):
+    if not db_path: # pragma: no cover
+        db_path = get_db_path()
     uuid = packet['id']
     sender = packet['fromId']
     target = packet['toId']
@@ -75,9 +78,17 @@ def onMessage(packet, interface, db_path="db.sqlite"):
         db.insert(uuid, sender, target, text, channel, timestamp)
 
 
+def get_db_path():
+    this_dir = os.path.dirname(os.path.abspath(__file__))
+    data_dir = os.path.join(os.path.dirname(this_dir), 'data')
+    os.makedirs(data_dir, exist_ok=True)
+    db_path = os.path.join(data_dir, "db.sqlite")
+    return db_path
+
 def start():
     """For use in the main app"""
     pub.subscribe(onMessage, "meshtastic.receive.text")
+    return get_db_path()
 
 if __name__ == "__main__": # pragma: no cover
     interface = meshtastic.serial_interface.SerialInterface()
