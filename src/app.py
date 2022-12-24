@@ -46,4 +46,4 @@ if __name__ == "__main__": # pragma: no cover
                 output.write(json.dumps(api.__schema__, indent=2))
     else:
         app, api = create_app()
-        app.run()
+        app.run(host="0.0.0.0")
