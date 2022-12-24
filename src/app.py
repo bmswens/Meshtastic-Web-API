@@ -40,7 +40,7 @@ if __name__ == "__main__": # pragma: no cover
     args = parser.parse_args()
     if args.export:
         app, api = create_app(False)
-        app.config["SERVER_NAME"] = "http://bmswens.github.io/Meshtastic-Web-API/"
+        app.config["SERVER_NAME"] = "bmswens.github.io/Meshtastic-Web-API/"
         with app.app_context():
             with open("swagger.json", 'w') as output:
                 output.write(json.dumps(api.__schema__, indent=2))
