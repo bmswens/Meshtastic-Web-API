@@ -87,8 +87,9 @@ def app():
     # db setup
     app.db = db.Database("test.sqlite")
     with app.db as database:
-        database.insert(1, "sender2", "!9388f81c", "first message", 1, datetime.datetime(year=2022, month=12, day=18).isoformat())
-        database.insert(1, "sender1", "^all", "testing", 0, datetime.datetime.now().isoformat())
+        database.insert_message(1, "sender2", "!9388f81c", "first message", 1, datetime.datetime(year=2022, month=12, day=18).isoformat())
+        database.insert_message(1, "sender1", "^all", "testing", 0, datetime.datetime.now().isoformat())
+        database.insert_position(1, "sender1", "^all", 1, 1, 1, datetime.datetime(year=2022, month=12, day=18).isoformat())
     # other setup can go here
 
     yield app

@@ -90,5 +90,5 @@ class TextMessage(Resource):
             dm = user['id']
         limit = params.get("limit")
         with current_app.db as db:
-            messages = db.get(limit, dm)
+            messages = db.get_messages(limit, dm)
         return messages

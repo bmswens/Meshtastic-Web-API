@@ -34,20 +34,33 @@ class Database:
             );
             """
         )
+        self.cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS positions (
+                uuid INTEGER,
+                sender TEXT,
+                target TEXT,
+                altitude INTEGER,
+                longitude REAL,
+                latitude REAL,
+                timestamp TEXT
+            );
+            """
+        )
         return self
     def __exit__(self, exception_type, exception_value, exception_traceback):
         self.connection.commit()
         self.connection.close()
         self.connection = None
         self.cursor = None
-    def insert(self, uuid, sender, target, text, channel, timestamp):
+    def insert_message(self, uuid, sender, target, text, channel, timestamp):
         if not self.connection:
             raise RuntimeError('No connection found, please use `with Database("/path") as db:` syntax')
         self.cursor.execute(
             "INSERT INTO messages VALUES (?, ?, ?, ?, ?, ?);",
             [uuid, sender, target, text, channel, timestamp]
         )
-    def get(
+    def get_messages(
         self,
         limit=None,
         dm=None
@@ -62,7 +75,22 @@ class Database:
         elif dm:
             results = self.cursor.execute("SELECT * FROM messages WHERE target=? ORDER BY timestamp DESC;", [dm])
         return [row for row in results]
-
+    def insert_position(self, uuid, sender, target, altitude, latitude, longitude, timestamp):
+        if not self.connection:
+            raise RuntimeError('No connection found, please use `with Database("/path") as db:` syntax')
+        self.cursor.execute(
+            "INSERT INTO positions VALUES (?, ?, ?, ?, ?, ?, ?);",
+            [uuid, sender, target, altitude, latitude, longitude, timestamp]
+        )
+    def get_positions(
+        self,
+        target=None,
+        limit=None
+    ):
+        if not self.connection:
+            raise RuntimeError('No connection found, please use `with Database("/path") as db:` syntax')
+        results = self.cursor.execute("SELECT * FROM positions ORDER BY timestamp DESC;")
+        return [row for row in results]
 
 def onMessage(packet, interface, db_path=None):
     if not db_path: # pragma: no cover
@@ -75,8 +103,23 @@ def onMessage(packet, interface, db_path=None):
     timestamp = datetime.datetime.fromtimestamp(packet['rxTime'])
     timestamp = timestamp.isoformat()
     with Database(db_path) as db:
-        db.insert(uuid, sender, target, text, channel, timestamp)
+        db.insert_message(uuid, sender, target, text, channel, timestamp)
 
+
+def onPosition(packet, interface, db_path=None):
+    if not db_path: # pragma: no cover
+        db_path = get_db_path()
+    uuid = packet['id']
+    sender = packet['fromId']
+    target = packet['toId']
+    position = packet['decoded']['position']
+    altitude = position['altitude']
+    longitude = position['longitude']
+    latitude = position['latitude']
+    timestamp = datetime.datetime.fromtimestamp(packet['rxTime'])
+    timestamp = timestamp.isoformat()
+    with Database(db_path) as db:
+        db.insert_position(uuid, sender, target, altitude, latitude, longitude, timestamp)
 
 def get_db_path():
     this_dir = os.path.dirname(os.path.abspath(__file__))
@@ -88,9 +131,11 @@ def get_db_path():
 def start():
     """For use in the main app"""
     pub.subscribe(onMessage, "meshtastic.receive.text")
+    pub.subscribe(onPosition, "meshtastic.receive.position")
     return get_db_path()
 
 if __name__ == "__main__": # pragma: no cover
     interface = meshtastic.serial_interface.SerialInterface()
     while True:
         pub.subscribe(onMessage, "meshtastic.receive.text")
+        pub.subscribe(onPosition, "meshtastic.receive.position")
