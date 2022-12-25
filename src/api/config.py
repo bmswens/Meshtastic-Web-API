@@ -4,8 +4,6 @@ from flask_restx import Namespace, Resource, fields
 from meshtastic import __main__ as meshtastic
 import yaml
 
-# custom
-from .utils import clean_position
 
 api = Namespace("config", description="Config operations")
 
