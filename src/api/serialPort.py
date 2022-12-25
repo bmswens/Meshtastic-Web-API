@@ -2,13 +2,13 @@
 from flask import current_app
 from flask_restx import Namespace, Resource, fields
 
-api = Namespace("serial", description="Information about the serial connection")
+api = Namespace("serialPort", description="Information about the serial connection")
 
 portModel = api.model("Port", {
     "port": fields.String(example="COM4, /dev/ttyUSB0, etc.")
 })
 
-@api.route("/port")
+@api.route("")
 class Port(Resource):
     @api.doc(
         description="Returns JSON containing the port the device is connected on.",

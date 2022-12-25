@@ -4,7 +4,7 @@ from flask_restx import Api
 # custom
 from .nodeInfo import api as nodeInfo
 from .config import api as config
-from .serial import api as serial
+from .serialPort import api as serialPort
 from .channels import api as channels
 
 api = Api(
@@ -18,5 +18,5 @@ api = Api(
 
 api.add_namespace(nodeInfo, path="/nodeInfo")
 api.add_namespace(config, path="/config")
-api.add_namespace(serial, path="/serial")
+api.add_namespace(serialPort, path="/serialPort")
 api.add_namespace(channels, path="/channel")
