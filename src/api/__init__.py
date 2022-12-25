@@ -6,6 +6,7 @@ from .nodeInfo import api as nodeInfo
 from .localConfig import api as localConfig
 from .serialPort import api as serialPort
 from .text import api as text
+from .cannedMessageModule import api as cannedMessage
 
 api = Api(
     title="Meshtastic Web API",
@@ -20,3 +21,4 @@ api.add_namespace(nodeInfo, path="/nodeInfo")
 api.add_namespace(localConfig, path="/localConfig")
 api.add_namespace(serialPort, path="/serialPort")
 api.add_namespace(text, path="/text")
+api.add_namespace(cannedMessage, path="/canned-message-module-config")

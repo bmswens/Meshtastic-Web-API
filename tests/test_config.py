@@ -98,17 +98,17 @@ owner_short: SN0
 
 class TestCannedMessage:
     def test_get_message(self, client):
-        resp = client.get("/localConfig/canned-message")
+        resp = client.get("/canned-message-module-config")
         assert resp.status_code == 200
-        assert resp.json == { "canned_message": "test" }
+        assert resp.json == { "messages": "test" }
 
     def test_post_message(self, client):
-        body = { "canned_message": "New Test" }
-        resp = client.post("/localConfig/canned-message", json=body)
+        body = { "messages": "New Test" }
+        resp = client.post("/canned-message-module-config", json=body)
         assert resp.status_code == 200
         assert resp.json == body
 
     def test_bad_post_message(self, client):
         body = { "fake": "data" }
-        resp = client.post("/localConfig/canned-message", json=body)
+        resp = client.post("/canned-message-module-config", json=body)
         assert resp.status_code == 400
