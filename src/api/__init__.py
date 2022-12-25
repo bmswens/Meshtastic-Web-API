@@ -5,7 +5,7 @@ from flask_restx import Api
 from .nodeInfo import api as nodeInfo
 from .localConfig import api as localConfig
 from .serialPort import api as serialPort
-from .text import api as text
+from .messages import api as messages
 from .cannedMessageModule import api as cannedMessage
 from .positions import api as positions
 
@@ -21,6 +21,6 @@ api = Api(
 api.add_namespace(nodeInfo, path="/node-info")
 api.add_namespace(localConfig, path="/local-config")
 api.add_namespace(serialPort, path="/serial-port")
-api.add_namespace(text, path="/text")
+api.add_namespace(messages, path="/messages")
 api.add_namespace(cannedMessage, path="/canned-message-module-config")
 api.add_namespace(positions, path="/positions")
