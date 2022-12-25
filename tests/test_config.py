@@ -4,6 +4,7 @@ from unittest.mock import MagicMock
 # to mock
 from meshtastic import __main__ as meshtastic
 
+
 class TestConfig:
     def test_get_config(self, client):
         meshtastic.export_config = MagicMock(
@@ -57,58 +58,55 @@ module_config:
     environmentUpdateInterval: 900
 owner: Swenson Node 0
 owner_short: SN0
-            """ 
+            """
         )
         resp = client.get("/local-config")
         assert resp.status_code == 200
         required_keys = [
-            'channel_url',
-            'config',
-            'location',
-            'module_config',
-            'owner',
-            'owner_short'
+            "channel_url",
+            "config",
+            "location",
+            "module_config",
+            "owner",
+            "owner_short",
         ]
         for key in required_keys:
             assert key in resp.json.keys()
 
     def test_post_full_config(self, client):
-      body = {
-        "owner": "Swenson Node 0",
-        "owner_short": "SN0",
-        "channel_url": "http://meshtastic.org/asdfadsf",
-        "location": {
-          "alt": 0,
-          "lat": 0,
-          "lon": 0
-        },
-        "config": {
-          "section": {
-            "ignore_incoming": "string",
-          }
-        },
-        "module_config": {
-          "section": {
-            "ignore_incoming": "string",
-          }
+        body = {
+            "owner": "Swenson Node 0",
+            "owner_short": "SN0",
+            "channel_url": "http://meshtastic.org/asdfadsf",
+            "location": {"alt": 0, "lat": 0, "lon": 0},
+            "config": {
+                "section": {
+                    "ignore_incoming": "string",
+                }
+            },
+            "module_config": {
+                "section": {
+                    "ignore_incoming": "string",
+                }
+            },
         }
-      }
-      resp = client.post("/local-config", json=body)
-      assert resp.status_code == 200
+        resp = client.post("/local-config", json=body)
+        assert resp.status_code == 200
+
 
 class TestCannedMessage:
     def test_get_message(self, client):
         resp = client.get("/canned-message-module-config")
         assert resp.status_code == 200
-        assert resp.json == { "messages": "test" }
+        assert resp.json == {"messages": "test"}
 
     def test_post_message(self, client):
-        body = { "messages": "New Test" }
+        body = {"messages": "New Test"}
         resp = client.post("/canned-message-module-config", json=body)
         assert resp.status_code == 200
         assert resp.json == body
 
     def test_bad_post_message(self, client):
-        body = { "fake": "data" }
+        body = {"fake": "data"}
         resp = client.post("/canned-message-module-config", json=body)
         assert resp.status_code == 400

@@ -1,4 +1,3 @@
-
 class TestPositions:
     def test_get_all(self, client):
         resp = client.get("/positions")

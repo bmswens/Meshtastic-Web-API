@@ -1,4 +1,3 @@
-
 class TestPort:
     def test_get_port(self, client):
         resp = client.get("/serial-port")

@@ -4,9 +4,10 @@ from flask_restx import Namespace, Resource, fields
 
 api = Namespace("Serial Port", description="Information about the serial connection")
 
-portModel = api.model("Port", {
-    "port": fields.String(example="COM4, /dev/ttyUSB0, etc.")
-})
+portModel = api.model(
+    "Port", {"port": fields.String(example="COM4, /dev/ttyUSB0, etc.")}
+)
+
 
 @api.route("")
 class Port(Resource):
