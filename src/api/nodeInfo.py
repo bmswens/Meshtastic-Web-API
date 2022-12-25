@@ -2,7 +2,7 @@
 from flask import current_app, request
 from flask_restx import Namespace, Resource, fields
 
-api = Namespace("nodeInfo", description="Information about the node(s)")
+api = Namespace("Node Info", description="Information about the node(s)")
 
 # Node Info Models
 

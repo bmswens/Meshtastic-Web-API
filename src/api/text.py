@@ -2,7 +2,7 @@
 from flask import current_app, request
 from flask_restx import Namespace, Resource, fields, marshal
 
-api = Namespace("text", description="Sending and recieving text messages")
+api = Namespace("Text", description="Sending and recieving text messages")
 
 messageModel = api.model("Sent Message", {
     "text": fields.String(

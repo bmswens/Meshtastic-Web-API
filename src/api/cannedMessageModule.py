@@ -4,7 +4,7 @@ from flask_restx import Namespace, Resource, fields, marshal
 
 api = Namespace("Canned Message Module Config", description="Canned message module configuration.")
 
-canned_message_model = api.model("canned message", {
+canned_message_model = api.model("Canned Message Config", {
     "messages": fields.String(
         description="Predefined messages for canned message module separated by '|' characters.",
         required=True, 

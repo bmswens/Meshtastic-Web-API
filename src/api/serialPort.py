@@ -2,7 +2,7 @@
 from flask import current_app
 from flask_restx import Namespace, Resource, fields
 
-api = Namespace("serialPort", description="Information about the serial connection")
+api = Namespace("Serial Port", description="Information about the serial connection")
 
 portModel = api.model("Port", {
     "port": fields.String(example="COM4, /dev/ttyUSB0, etc.")
