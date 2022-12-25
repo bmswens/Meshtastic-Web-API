@@ -5,7 +5,7 @@ from meshtastic import __main__ as meshtastic
 import yaml
 
 
-api = Namespace("config", description="Config operations")
+api = Namespace("localConfig", description="Config operations")
 
 abstractConfig = api.model("AbstractConfig", {
     '*': fields.Wildcard(fields.String)

@@ -59,7 +59,7 @@ owner: Swenson Node 0
 owner_short: SN0
             """ 
         )
-        resp = client.get("/config")
+        resp = client.get("/localConfig")
         assert resp.status_code == 200
         required_keys = [
             'channel_url',
@@ -93,22 +93,22 @@ owner_short: SN0
           }
         }
       }
-      resp = client.post("/config", json=body)
+      resp = client.post("/localConfig", json=body)
       assert resp.status_code == 200
 
 class TestCannedMessage:
     def test_get_message(self, client):
-        resp = client.get("/config/canned-message")
+        resp = client.get("/localConfig/canned-message")
         assert resp.status_code == 200
         assert resp.json == { "canned_message": "test" }
 
     def test_post_message(self, client):
         body = { "canned_message": "New Test" }
-        resp = client.post("/config/canned-message", json=body)
+        resp = client.post("/localConfig/canned-message", json=body)
         assert resp.status_code == 200
         assert resp.json == body
 
     def test_bad_post_message(self, client):
         body = { "fake": "data" }
-        resp = client.post("/config/canned-message", json=body)
+        resp = client.post("/localConfig/canned-message", json=body)
         assert resp.status_code == 400

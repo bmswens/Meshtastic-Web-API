@@ -3,7 +3,7 @@ from flask_restx import Api
 
 # custom
 from .nodeInfo import api as nodeInfo
-from .config import api as config
+from .localConfig import api as localConfig
 from .serialPort import api as serialPort
 from .text import api as text
 
@@ -17,6 +17,6 @@ api = Api(
 )
 
 api.add_namespace(nodeInfo, path="/nodeInfo")
-api.add_namespace(config, path="/config")
+api.add_namespace(localConfig, path="/localConfig")
 api.add_namespace(serialPort, path="/serialPort")
 api.add_namespace(text, path="/text")
