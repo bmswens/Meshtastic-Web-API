@@ -17,8 +17,8 @@ api = Api(
     license_url="https://github.com/bmswens/Meshtastic-REST-API/blob/main/LICENSE"
 )
 
-api.add_namespace(nodeInfo, path="/nodeInfo")
-api.add_namespace(localConfig, path="/localConfig")
-api.add_namespace(serialPort, path="/serialPort")
+api.add_namespace(nodeInfo, path="/node-info")
+api.add_namespace(localConfig, path="/local-config")
+api.add_namespace(serialPort, path="/serial-port")
 api.add_namespace(text, path="/text")
 api.add_namespace(cannedMessage, path="/canned-message-module-config")

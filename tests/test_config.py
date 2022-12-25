@@ -59,7 +59,7 @@ owner: Swenson Node 0
 owner_short: SN0
             """ 
         )
-        resp = client.get("/localConfig")
+        resp = client.get("/local-config")
         assert resp.status_code == 200
         required_keys = [
             'channel_url',
@@ -93,7 +93,7 @@ owner_short: SN0
           }
         }
       }
-      resp = client.post("/localConfig", json=body)
+      resp = client.post("/local-config", json=body)
       assert resp.status_code == 200
 
 class TestCannedMessage:

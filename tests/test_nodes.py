@@ -2,21 +2,21 @@
 
 class TestGetNode:
     def test_existing_node(self, client):
-        resp = client.get("/nodeInfo/!9388f81c")
+        resp = client.get("/node-info/!9388f81c")
         assert resp.status_code == 200
         assert resp.json["user"]["id"] == "!9388f81c"
     def test_remove_raw(self, client):
-        resp = client.get("/nodeInfo/SN1")
+        resp = client.get("/node-info/SN1")
         assert resp.status_code == 200
         assert resp.json["position"].get("raw") == None
     def test_non_existant_node(self, client):
-        resp = client.get("/nodeInfo/fakeSerial")
+        resp = client.get("/node-info/fakeSerial")
         assert resp.status_code == 404
 
 
 class TestGetAllNodes:
     def test_all_nodes(self, client):
-        resp = client.get("/nodeInfo")
+        resp = client.get("/node-info")
         assert resp.status_code == 200
         mockNodes = [
             {
