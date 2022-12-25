@@ -2,9 +2,9 @@
 from flask import current_app, request
 from flask_restx import Namespace, Resource, fields, marshal
 
-api = Namespace("channel", description="Channel-centric operations, includes messaging and configuration.")
+api = Namespace("text", description="Sending and recieving text messages")
 
-messageModel = api.model("Message", {
+messageModel = api.model("Sent Message", {
     "text": fields.String(
         required=True,
         example="Hello world!",
@@ -54,7 +54,7 @@ recMessageModel = api.model("Recieved Message", {
     )
 })
 
-@api.route("/messages")
+@api.route("")
 class TextMessage(Resource):
     @api.doc(
         description="Send a message on a channel, defaults to primary channel"
