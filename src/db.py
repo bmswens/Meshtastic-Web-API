@@ -98,14 +98,21 @@ class Database:
             [uuid, sender, target, altitude, latitude, longitude, timestamp],
         )
 
-    def get_positions(self, target=None, limit=None):
+    def get_positions(self, node=None, limit=None):
         if not self.connection:
             raise RuntimeError(
                 'No connection found, please use `with Database("/path") as db:` syntax'
             )
+
+        query = "SELECT * FROM positions ORDER BY timestamp DESC;"
+        args = []
+        if node:
+            query = "SELECT * FROM positions WHERE sender = ? ORDER BY timestamp DESC;"
+            args.append(node)
         results = self.cursor.execute(
-            "SELECT * FROM positions ORDER BY timestamp DESC;"
-        )
+            query,
+            args
+        ) 
         return [row for row in results]
 
 

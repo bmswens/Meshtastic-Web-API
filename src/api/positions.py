@@ -42,3 +42,27 @@ class Positions(Resource):
     def get(self):
         with current_app.db as db:
             return db.get_positions()
+
+@api.route("/<node>")
+class NodePosition(Resource):
+    @api.doc(description="Get the positions of a single node, by name, ID, etc.")
+    @api.marshal_with(PositionModel)
+    def get(self, node):
+        interface = current_app.interface
+        if node not in interface.nodes:
+            found = False
+            for nodeId in interface.nodes:
+                nodeInfo = interface.nodes[nodeId]
+                names = [
+                    nodeInfo['user']["longName"],
+                    nodeInfo['user']['shortName'],
+                    nodeInfo['user']['macaddr']
+                ]
+                if node in names:
+                    found = True
+                    node = nodeId
+                    break
+            if not found:
+                return {}, 404
+        with current_app.db as db:
+            return db.get_positions(node=node)

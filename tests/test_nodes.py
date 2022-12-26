@@ -48,7 +48,7 @@ class TestGetAllNodes:
                 "user": {
                     "id": "SN1",
                     "longName": "Unknown f81c",
-                    "shortName": "?1C",
+                    "shortName": "UF81",
                     "macaddr": "RBeTiPgc",
                     "hwModel": "TBEAM",
                 },

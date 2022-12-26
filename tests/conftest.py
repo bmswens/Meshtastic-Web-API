@@ -55,7 +55,7 @@ def app():
             "user": {
                 "id": "SN1",
                 "longName": "Unknown f81c",
-                "shortName": "?1C",
+                "shortName": "UF81",
                 "macaddr": "RBeTiPgc",
                 "hwModel": "TBEAM",
             },
@@ -108,6 +108,9 @@ def app():
             1,
             1,
             datetime.datetime(year=2022, month=12, day=18).isoformat(),
+        )
+        database.insert_position(
+            2, "SN1", "^all", 1, 1, 1, datetime.datetime.now().isoformat()
         )
     # other setup can go here
 
