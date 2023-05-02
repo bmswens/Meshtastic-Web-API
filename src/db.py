@@ -127,8 +127,11 @@ def onMessage(packet, interface, db_path=None):
     target = packet["toId"]
     text = packet["decoded"]["payload"].decode()
     channel = packet.get("channel", 0)
-    timestamp = datetime.datetime.fromtimestamp(packet["rxTime"])
-    timestamp = timestamp.isoformat()
+    timestamp = datetime.datetime.now()
+    rxTime = packet.get("rxTime")
+    if rxTime:
+        timestamp = datetime.datetime.fromtimestamp(packet["rxTime"])
+        timestamp = timestamp.isoformat()
     with Database(db_path) as db:
         db.insert_message(uuid, sender, target, text, channel, timestamp)
 
