@@ -36,7 +36,7 @@ class TestDB:
         with db.Database(":memory:") as d:
             d.insert_position(1, 1, 1, 1, 1, 1, datetime.datetime.now().isoformat())
 
-    def test_rec_msg(self):
+    def test_rec_msg(self, requests_mock):
         # TODO: Figure out how to test this better
         db.start()
         packet = {
@@ -55,6 +55,7 @@ class TestDB:
             }
         }
         interface.nodes = nodes
+        requests_mock.post("http://test.com/api/x", json={"message": "success"})
         db.onMessage(packet, interface, ":memory:")
 
     def test_rec_position(self):
