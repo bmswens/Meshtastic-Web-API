@@ -8,7 +8,7 @@ import meshtastic.serial_interface
 from pubsub import pub
 
 # custom
-from .api import mattermost
+from api import mattermost
 
 
 def dict_factory(cursor, row):
