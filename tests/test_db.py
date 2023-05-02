@@ -44,7 +44,16 @@ class TestDB:
             "decoded": {"payload": b"test"},
             "rxTime": 2,
         }
-        db.onMessage(packet, {}, ":memory:")
+        interface = {
+            "nodes": {
+                1: {
+                    "user": {
+                        "longName": "John"
+                    }
+                }
+            }
+        }
+        db.onMessage(packet, interface, ":memory:")
 
     def test_rec_position(self):
         packet = {
