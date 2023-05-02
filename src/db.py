@@ -12,8 +12,6 @@ from pubsub import pub
 # custom
 from api.mattermost import onMessage as mmOnMessage
 
-# logging config
-logging.basicConfig(filename='/app/data/packets.log', encoding='utf-8', level=logging.INFO)
 
 def dict_factory(cursor, row):
     fields = [column[0] for column in cursor.description]
@@ -135,7 +133,7 @@ def onMessage(packet, interface, db_path=None):
     timestamp = datetime.datetime.now()
     rxTime = packet.get("rxTime")
     if rxTime:
-        timestamp = datetime.datetime.fromtimestamp(packet["rxTime"])
+        timestamp = datetime.datetime.fromtimestamp(rxTime)
         timestamp = timestamp.isoformat()
     with Database(db_path) as db:
         db.insert_message(uuid, sender, target, text, channel, timestamp)
