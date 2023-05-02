@@ -5,6 +5,9 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      MATTERMOST_ENABLED: TRUE
+      MATTERMOST_TOKEN: XYZ
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4

@@ -15,3 +15,6 @@ coverage
 *.sqlite
 swagger.json
 data
+
+# env
+.env
