@@ -8,7 +8,7 @@ import meshtastic.serial_interface
 from pubsub import pub
 
 # custom
-from api import mattermost
+from api.mattermost import onMessage as mmOnMessage
 
 
 def dict_factory(cursor, row):
@@ -135,7 +135,7 @@ def onMessage(packet, interface, db_path=None):
     # mattermost integration
     mattermost_url = os.getenv("MATTERMOST_WEBHOOK")
     if mattermost_url:
-        mattermost.onMessage(packet, interface)
+        mmOnMessage(packet, interface)
 
 
 def onPosition(packet, interface, db_path=None):
