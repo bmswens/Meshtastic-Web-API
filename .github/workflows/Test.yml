@@ -14,7 +14,7 @@ jobs:
     - uses: actions/setup-python@v4
       with:
         python-version: '3.10' 
-    - run: apt install cloud-init
+    - run: sudo apt install cloud-init
     - run: pip install -r requirements.txt
     - run: pytest --cov=src --cov-report term-missing --cov-report lcov:coverage/lcov.info
     - name: Coveralls
