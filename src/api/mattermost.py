@@ -79,6 +79,6 @@ class MattermostMessage(Resource):
             return {"message": "'text' must be in body"}, 400
         if os.getenv("MATTERMOST_TOKEN") != from_mattermost["token"]:
             return {"message": "token does not match"}, 403
-        text = f'FROM: {from_mattermost["user_name"]} {from_mattermost["text"]}'
+        text = f'FROM: {from_mattermost["user_name"]}\n{from_mattermost["text"]}'
         interface.sendText(text=text, wantAck=True)
         return {"message": "success"}, 200
