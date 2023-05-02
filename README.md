@@ -26,6 +26,7 @@ A web-based API to be hosted on devices connected to a [Meshtastic](https://gith
 | ---- | ----------- | ------- | ------- |
 | MATTERMOST_ENABLED | Boolean; if set to anything, Mattermost integration will be enabled | `TRUE` | Empty |
 | MATTERMOST_TOKEN | String; the token of the Mattermost server to communicate with | `zmigewsanbbsdf59xnmduzypjc` | Empty |
+| MATTERMOST_WEBHOOK | String; URL to POST messages to | `http://chat.apocrypha.swenson.software/hooks/p9crnwz8uiyk5mjk1tm745q4ky` | Empty |
 
 ### Github Pages
 Searchable documentation is deployed on Github pages and can be found [here](https://bmswens.github.io/Meshtastic-Web-API/).

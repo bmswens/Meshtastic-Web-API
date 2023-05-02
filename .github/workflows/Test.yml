@@ -8,6 +8,7 @@ jobs:
     env:
       MATTERMOST_ENABLED: TRUE
       MATTERMOST_TOKEN: XYZ
+      MATTERMOST_WEBHOOK: http://test.com/api/x
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4

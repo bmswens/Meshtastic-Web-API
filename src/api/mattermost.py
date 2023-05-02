@@ -4,6 +4,7 @@ import os
 # 3rd party
 from flask import current_app, request
 from flask_restx import Namespace, Resource, fields, marshal
+import requests
 
 api = Namespace("Mattermost", description="Extend Mattermost messages to Meshtastic.")
 
@@ -82,3 +83,22 @@ class MattermostMessage(Resource):
         text = f'FROM: {from_mattermost["user_name"]}\n{from_mattermost["text"]}'
         interface.sendText(text=text, wantAck=True)
         return {"message": "success"}, 200
+
+
+def onMessage(packet, interface):
+    sender = packet["fromId"]
+    text = packet["decoded"]["payload"].decode()
+    senderName = sender
+    nodes = interface.nodes
+    # try and get a long name for the sender
+    for nodeNum in nodes:
+        nodeInfo = nodes[nodeNum]
+        if nodeNum == sender:
+            senderName = nodeInfo["user"].get("longName")
+    # post that data
+    body = {
+        "text": text,
+        "username": senderName 
+    }
+    url = os.getenv("MATTERMOST_WEBHOOK")
+    requests.post(url, json=body)

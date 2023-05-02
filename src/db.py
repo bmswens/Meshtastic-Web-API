@@ -7,6 +7,9 @@ import datetime
 import meshtastic.serial_interface
 from pubsub import pub
 
+# custom
+from .api import mattermost
+
 
 def dict_factory(cursor, row):
     fields = [column[0] for column in cursor.description]
@@ -128,6 +131,11 @@ def onMessage(packet, interface, db_path=None):
     timestamp = timestamp.isoformat()
     with Database(db_path) as db:
         db.insert_message(uuid, sender, target, text, channel, timestamp)
+
+    # mattermost integration
+    mattermost_url = os.getenv("MATTERMOST_WEBHOOK")
+    if mattermost_url:
+        mattermost.onMessage(packet, interface)
 
 
 def onPosition(packet, interface, db_path=None):
