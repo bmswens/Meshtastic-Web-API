@@ -2,6 +2,8 @@
 import os
 import sqlite3
 import datetime
+import logging
+import json
 
 # 3rd party
 import meshtastic.serial_interface
@@ -10,6 +12,8 @@ from pubsub import pub
 # custom
 from api.mattermost import onMessage as mmOnMessage
 
+# logging config
+logging.basicConfig(filename='/app/data/packets.log', encoding='utf-8', level=logging.INFO)
 
 def dict_factory(cursor, row):
     fields = [column[0] for column in cursor.description]
@@ -122,6 +126,7 @@ class Database:
 def onMessage(packet, interface, db_path=None):
     if not db_path:  # pragma: no cover
         db_path = get_db_path()
+    logging.info(json.dumps(packet))
     uuid = packet["id"]
     sender = packet["fromId"]
     target = packet["toId"]
