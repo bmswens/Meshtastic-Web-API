@@ -10,4 +10,4 @@ COPY ./requirements.txt ./
 RUN pip install -r requirements.txt
 COPY ./src ./src
 
-ENTRYPOINT ["python", "/app/src/app.py"]
+ENTRYPOINT ["/bin/bash", "/app/src/entrypoint.sh"]
