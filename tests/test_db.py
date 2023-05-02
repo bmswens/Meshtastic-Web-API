@@ -1,10 +1,12 @@
 # built in
 import os
 import datetime
+from unittest.mock import MagicMock
 
 # 3rd party
 from pubsub import pub
 import pytest
+from meshtastic.mesh_interface import MeshInterface
 
 # custom
 # add to os.sys.path so that we don't have to make a package
@@ -44,15 +46,15 @@ class TestDB:
             "decoded": {"payload": b"test"},
             "rxTime": 2,
         }
-        interface = {
-            "nodes": {
-                1: {
-                    "user": {
-                        "longName": "John"
-                    }
+        interface = MagicMock(autospec=MeshInterface)
+        nodes =  {
+            "1": {
+                "user": {
+                    "longName": "John"
                 }
             }
         }
+        interface.nodes = nodes
         db.onMessage(packet, interface, ":memory:")
 
     def test_rec_position(self):
