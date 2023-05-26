@@ -12,21 +12,10 @@
 ## Overview
 A web-based API to be hosted on devices connected to a [Meshtastic](https://github.com/meshtastic) node via serial connection.
 
-## Installation
-`Coming soon`
-
-## Usage
-`Coming soon`
-
 ## Documentation
 
-### Docker Environment Variables
-
-| Name | Description | Example | Default |
-| ---- | ----------- | ------- | ------- |
-| MATTERMOST_ENABLED | Boolean; if set to anything, Mattermost integration will be enabled | `TRUE` | Empty |
-| MATTERMOST_TOKEN | String; the token of the Mattermost server to communicate with | `zmigewsanbbsdf59xnmduzypjc` | Empty |
-| MATTERMOST_WEBHOOK | String; URL to POST messages to | `http://chat.apocrypha.swenson.software/hooks/p9crnwz8uiyk5mjk1tm745q4ky` | Empty |
+### Wiki
+Documentation on installation, configuration, usage, and more can be found [on the wiki](https://github.com/bmswens/Meshtastic-Web-API/wiki).
 
 ### Github Pages
 Searchable documentation is deployed on Github pages and can be found [here](https://bmswens.github.io/Meshtastic-Web-API/).
