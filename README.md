@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/bmswens/Meshtastic-Web-API/badge.svg?branch=main)](https://coveralls.io/github/bmswens/Meshtastic-Web-API?branch=main)
 [![Docker Build](https://img.shields.io/badge/Docker%20Build-Automated-brightgreen)](https://github.com/bmswens/Meshtastic-Web-API/actions/workflows/docker.yml)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bmswens/meshtastic-web-api)](https://hub.docker.com/repository/docker/bmswens/meshtastic-web-api)
-[![License](https://img.shields.io/github/license/bmswens/Meshtastic-REST-API)](https://github.com/bmswens/Meshtastic-REST-API/blob/master/LICENSE.txt)
+[![License](https://img.shields.io/github/license/bmswens/Meshtastic-REST-API)](https://github.com/bmswens/Meshtastic-REST-API/blob/master/LICENSE)
 
 
 ---
