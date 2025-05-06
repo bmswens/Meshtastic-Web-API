@@ -7,7 +7,7 @@ import datetime
 from meshtastic.serial_interface import SerialInterface
 from meshtastic.mesh_interface import MeshInterface
 from meshtastic.node import Node
-from meshtastic.channel_pb2 import Channel
+from meshtastic.protobuf.channel_pb2 import Channel
 import pytest
 
 # custom
