@@ -41,7 +41,7 @@ class TestDB:
         db.start()
         packet = {
             "id": 1,
-            "fromId": 1,
+            "fromId": "1",
             "toId": 2,
             "decoded": {"payload": b"test"},
             "rxTime": 2,

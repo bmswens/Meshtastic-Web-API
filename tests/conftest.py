@@ -2,12 +2,15 @@
 import os
 from unittest.mock import MagicMock
 import datetime
+from types import SimpleNamespace
 
 # 3rd party
 from meshtastic.serial_interface import SerialInterface
 from meshtastic.mesh_interface import MeshInterface
 from meshtastic.node import Node
-from meshtastic.channel_pb2 import Channel
+from meshtastic.protobuf.channel_pb2 import Channel
+from meshtastic.protobuf.localonly_pb2 import LocalConfig
+from meshtastic.protobuf.module_config_pb2 import ModuleConfig
 import pytest
 
 # custom
@@ -73,6 +76,23 @@ def app():
 
     getMyUser = MagicMock(return_value=nodes["!9388f81c"]["user"])
     iface.getMyUser = getMyUser
+    
+    mockNode = MagicMock(autospec=Node)
+    mockNode.localConfig = MagicMock(autospec=LocalConfig)
+    mockNode.localConfig.DESCRIPTOR.fields_by_name.get = lambda x, *args: SimpleNamespace(**{
+        "name": "x",
+        "message_type": SimpleNamespace(**{
+            "fields_by_name": {}
+        })
+    })
+    mockNode.moduleConfig = MagicMock(autospec=ModuleConfig)
+    mockNode.moduleConfig.DESCRIPTOR.fields_by_name.get = lambda x, *args: SimpleNamespace(**{
+        "name": "x",
+        "message_type": SimpleNamespace(**{
+            "fields_by_name": {}
+        })
+    })
+    iface.getNode = lambda x, y=True: mockNode
 
     # local node
     iface.localNode = MagicMock(autospec=Node)

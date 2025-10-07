@@ -80,13 +80,13 @@ owner_short: SN0
             "channel_url": "http://meshtastic.org/asdfadsf",
             "location": {"alt": 0, "lat": 0, "lon": 0},
             "config": {
-                "section": {
-                    "ignore_incoming": "string",
+                "bluetooth": {
+                    "enabled": "false",
                 }
             },
             "module_config": {
-                "section": {
-                    "ignore_incoming": "string",
+                "mqtt": {
+                    "password": "big4cats",
                 }
             },
         }
